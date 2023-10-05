@@ -45,16 +45,17 @@
                     <div class="col-1">
                         <div>
                             <label for="arrivaldate">Arrival Date</label>
-                            <input type="datetime-local" name="arrivaldate" id="arrivaldate">
+                            <input type="Date" name="arrivaldate" id="arrivaldate">
                         </div>
                         <div>
                             <label for="departuredate">Departure Date</label>
-                            <input type="datetime-local" name="departuredate" id="departuredate">
+                            <input type="Date" name="departuredate" id="departuredate">
                         </div>
+                        <p id="output"></p>
                     </div>
                 </div>
             </div>
-            <input type="button" name="Add" id="addData" value="Add">
+            <input type="button" name="Add" id="addData" value="Add"  onclick="testDateComparison()">
             <input type="button" name="check" id="showAll" value="Show All">
         </form>
         

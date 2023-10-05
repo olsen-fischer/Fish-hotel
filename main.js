@@ -73,27 +73,35 @@ function showAll() {
 }
 
 
+
 // Function to test conversion and comparison of dates
 function testDateComparison() {
-    if (guests.length >= 2) {
-        // Get the latest two guests
-        const latestGuest = guests[guests.length - 1];
-        const secondLatestGuest = guests[guests.length - 2];
+    // Extract arrival and departure dates
+    const arrivalDate = new Date(document.getElementById('arrivaldate').value);
+    const departureDate = new Date(document.getElementById('departuredate').value);
+    var result;
 
-        // Extract arrival and departure dates
-        const latestArrivalDate = new Date(latestGuest["Arrival Date"]);
-        const secondLatestDepartureDate = new Date(secondLatestGuest["Departure Date"]);
-
-        // Compare dates
-        if (latestArrivalDate < secondLatestDepartureDate) {
-            alert("Date comparison successful: The latest guest arrived after the previous guest's departure.");
-        } else if (latestArrivalDate > secondLatestDepartureDate) {
-            alert("Error: The latest guest arrived before or on the same day as the previous guest's departure.");
-        } else {
-            alert("Warning: The arrival date of the latest guest is the same as the departure date of the previous guest.");
-        }
+    if (departureDate > arrivalDate) {
+        result = "Date comparison successful: The latest guest arrived after the previous guest's departure."
+        document.getElementById('output').style.color = 'green';
+    } else if (arrivalDate > departureDate) {
+        result = "<h5>Error</h5> The latest guests depature bate exeeds arrival date or arrived before the previous guests departure"
+        document.querySelector('tbody').style.backgroundColor = 'red';
+        document.getElementById('output').style.color = 'red';
+    } else {
+        result = "Select Date"
+        document.getElementById('output').style.color = 'red';
     }
+
+    document.getElementById('output').innerHTML = result;
 }
+
+
+
+    
+
+        
+       
 
 // Add event listeners for the "Add" and "Show All" buttons
 document.getElementById('addData').addEventListener('click', addInfo);
