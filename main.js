@@ -1,4 +1,4 @@
-// Initialize an array to store guest information
+// Initializing the array to store guest information
 const guests = [];
 
 // Function to add guest information
@@ -12,7 +12,7 @@ function addInfo() {
     const arrivalDate = document.getElementById('arrivaldate').value;
     const departureDate = document.getElementById('departuredate').value;
 
-    // Check if any of the fields is empty before adding to the array
+    // Checking if any of the fields is empty before adding to the array
     if (
         !firstName ||
         !lastName ||
@@ -26,7 +26,7 @@ function addInfo() {
         return;
     }
 
-    // Create an object to store guest data
+    // an object to store guest data
     const guestData = {
         "First Name": firstName,
         "Last Name": lastName,
@@ -37,7 +37,7 @@ function addInfo() {
         "Departure Date": departureDate,
     };
 
-    // Add guest data to the guests array
+    // guest data to the guests array
     guests.push(guestData);
 
     // Clear input fields
@@ -73,27 +73,42 @@ function showAll() {
 }
 
 
+function isValidDate(dateString) {
+    // Use moment.js for flexible date parsing
+    const parsedDate = moment(dateString, 'DD-MM-YYYY', true);
+    return parsedDate.isValid();
+}
 
 // Function to test conversion and comparison of dates
-function testDateComparison() {
+function checkDate() {
     // Extract arrival and departure dates
-    const arrivalDate = new Date(document.getElementById('arrivaldate').value);
-    const departureDate = new Date(document.getElementById('departuredate').value);
-    var result;
 
-    if (departureDate > arrivalDate) {
-        result = "Date comparison successful: The latest guest arrived after the previous guest's departure."
-        document.getElementById('output').style.color = 'green';
-    } else if (arrivalDate > departureDate) {
-        result = "<h5>Error</h5> The latest guests depature bate exeeds arrival date or arrived before the previous guests departure"
-        document.querySelector('tbody').style.backgroundColor = 'red';
+    let arrivalDateInput = document.getElementById('arrivaldate').value;
+    let departureDateInput = document.getElementById('departuredate').value;
+    
+    let arrivalDate = new Date(arrivalDateInput)
+    let departureDate = new Date(departureDateInput)
+    
+
+    console.log("Arrival Date:", arrivalDate);
+    console.log("Departure Date:", departureDate);
+
+    let result;
+    let bgColor;
+
+    if (arrivalDate > departureDate) {
+        result = "Error: The latest guest's arrival date is after the previous guest's departure date.";
         document.getElementById('output').style.color = 'red';
+        bgColor = 'red';
     } else {
-        result = "Select Date"
-        document.getElementById('output').style.color = 'red';
+        result = "Date comparison successful: The latest guest arrived on or before the previous guest's departure date.";
+        document.getElementById('output').style.color = 'green';
+        bgColor = '';
     }
-
     document.getElementById('output').innerHTML = result;
+
+    const rowElement = document.getElementById('guestTableBody');
+    rowElement.style.backgroundColor = bgColor;
 }
 
 
@@ -106,5 +121,7 @@ function testDateComparison() {
 // Add event listeners for the "Add" and "Show All" buttons
 document.getElementById('addData').addEventListener('click', addInfo);
 document.getElementById('showAll').addEventListener('click', showAll);
+document.getElementById('checkDate').addEventListener('click', checkDate);
+
 
 

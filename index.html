@@ -45,18 +45,19 @@
                     <div class="col-1">
                         <div>
                             <label for="arrivaldate">Arrival Date</label>
-                            <input type="Date" name="arrivaldate" id="arrivaldate">
+                            <input type="date" name="arrivaldate" id="arrivaldate" >
                         </div>
                         <div>
                             <label for="departuredate">Departure Date</label>
-                            <input type="Date" name="departuredate" id="departuredate">
+                            <input type="date" name="departuredate" id="departuredate" >
                         </div>
                         <p id="output"></p>
                     </div>
                 </div>
             </div>
-            <input type="button" name="Add" id="addData" value="Add"  onclick="testDateComparison()">
-            <input type="button" name="check" id="showAll" value="Show All">
+            <input type="button" name="Add" id="addData" value="Add"  >
+            <input type="button" name="show-all" id="showAll" value="Show All" >
+            <input type="button" name="check" id="checkDate" value="Check Date" >
         </form>
         
         <!-- Display table for guests -->
@@ -73,6 +74,7 @@
             <tbody id="guestTableBody"></tbody>
         </table>
     </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
