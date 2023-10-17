@@ -68,48 +68,24 @@ function showAll() {
             cell.style.border = '1px solid #f16006ff'
             cell.style.wordSpacing = '5px'
         }
+        checkDate(guestInfo, row);
     });
    
 }
 
 
-function isValidDate(dateString) {
-    // Use moment.js for flexible date parsing
-    const parsedDate = moment(dateString, 'DD-MM-YYYY', true);
-    return parsedDate.isValid();
-}
+// Checking the arrival and departure date
+function checkDate(guestInfo, row) {
+    const departureDate = new Date(guestInfo["Departure Date"]);
+    const currentDate = new Date();
 
-// Function to test conversion and comparison of dates
-function checkDate() {
-    // Extract arrival and departure dates
-
-    let arrivalDateInput = document.getElementById('arrivaldate').value;
-    let departureDateInput = document.getElementById('departuredate').value;
-    
-    let arrivalDate = new Date(arrivalDateInput)
-    let departureDate = new Date(departureDateInput)
-    
-
-    console.log("Arrival Date:", arrivalDate);
-    console.log("Departure Date:", departureDate);
-
-    let result;
-    let bgColor;
-
-    if (arrivalDate > departureDate) {
-        result = "Error: The latest guest's arrival date is after the previous guest's departure date.";
-        document.getElementById('output').style.color = 'red';
-        bgColor = 'red';
-    } else {
-        result = "Date comparison successful: The latest guest arrived on or before the previous guest's departure date.";
-        document.getElementById('output').style.color = 'green';
-        bgColor = '';
+    if (departureDate < currentDate) {
+        row.style.backgroundColor = 'red';
+        row.style.color = 'white';
     }
-    document.getElementById('output').innerHTML = result;
-
-    const rowElement = document.getElementById('guestTableBody');
-    rowElement.style.backgroundColor = bgColor;
 }
+
+
 
 
 
@@ -118,10 +94,9 @@ function checkDate() {
         
        
 
-// Add event listeners for the "Add" and "Show All" buttons
+// event listeners for the  buttons
 document.getElementById('addData').addEventListener('click', addInfo);
 document.getElementById('showAll').addEventListener('click', showAll);
-document.getElementById('checkDate').addEventListener('click', checkDate);
 
 
 
