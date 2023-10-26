@@ -25,10 +25,11 @@ header{
 }
 header h1{
     color: #f16006ff;
+    font-weight: 500;
     
 }
 header img{
-   width: 10vw;
+   width: 6vw;
    height:100%;
    
 }

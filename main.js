@@ -39,8 +39,12 @@ function addInfo() {
 
     // guest data to the guests array
     guests.push(guestData);
+    clearInputFields();
+    showAll();
+}
 
-    // Clear input fields
+function clearInputFields(){
+    
     document.getElementById('firstname').value = '';
     document.getElementById('lastname').value = '';
     document.getElementById('dateOfBirth').value = '';
@@ -48,10 +52,7 @@ function addInfo() {
     document.getElementById('roomNumber').value = '';
     document.getElementById('arrivaldate').value = '';
     document.getElementById('departuredate').value = '';
-    
-}
-
-// Function to display all guest information
+};
 function showAll() {
     // Get the table body where guest information will be displayed
     const tableBody = document.getElementById('guestTableBody');
@@ -68,20 +69,27 @@ function showAll() {
             cell.style.border = '1px solid #f16006ff'
             cell.style.wordSpacing = '5px'
         }
-        checkDate(guestInfo, row);
     });
-   
+    
 }
 
 
-// Checking the arrival and departure date
-function checkDate(guestInfo, row) {
-    const departureDate = new Date(guestInfo["Departure Date"]);
-    const currentDate = new Date();
 
-    if (departureDate < currentDate) {
-        row.style.backgroundColor = 'red';
-        row.style.color = 'white';
+// Checking the arrival and departure date
+function checkDate() {
+    const currentDate = new Date();
+    const tableBody = document.getElementById('guestTableBody');
+    const rows = tableBody.getElementsByTagName('tr');
+
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const departureDateCell = row.cells[row.cells.length - 1];
+        const departureDate = new Date(departureDateCell.textContent);
+
+        if (departureDate < currentDate) {
+            row.style.backgroundColor = '#f16006ff';
+            row.style.color = '#000';
+        }
     }
 }
 
@@ -96,7 +104,7 @@ function checkDate(guestInfo, row) {
 
 // event listeners for the  buttons
 document.getElementById('addData').addEventListener('click', addInfo);
-document.getElementById('showAll').addEventListener('click', showAll);
+document.getElementById('showAll').addEventListener('click', checkDate);
 
 
 
