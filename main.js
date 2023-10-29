@@ -1,9 +1,7 @@
-// Initializing the array to store guest information
 const guests = [];
 
 // Function to add guest information
 function addInfo() {
-    // Get input values
     const firstName = document.getElementById('firstname').value;
     const lastName = document.getElementById('lastname').value;
     const dateOfBirth = document.getElementById('dateOfBirth').value;
@@ -43,16 +41,12 @@ function addInfo() {
     showAll();
 }
 
-function clearInputFields(){
-    
-    document.getElementById('firstname').value = '';
-    document.getElementById('lastname').value = '';
-    document.getElementById('dateOfBirth').value = '';
-    document.getElementById('country').value = '';
-    document.getElementById('roomNumber').value = '';
-    document.getElementById('arrivaldate').value = '';
-    document.getElementById('departuredate').value = '';
-};
+function clearInputFields() {
+    const inputFields = ['firstname', 'lastname', 'dateOfBirth', 'country', 'roomNumber', 'arrivaldate', 'departuredate'];
+    inputFields.forEach((field) => {
+        document.getElementById(field).value = '';
+    });
+}
 function showAll() {
     // Get the table body where guest information will be displayed
     const tableBody = document.getElementById('guestTableBody');
@@ -75,23 +69,26 @@ function showAll() {
 
 
 
-// Checking the arrival and departure date
 function checkDate() {
     const currentDate = new Date();
-    const tableBody = document.getElementById('guestTableBody');
-    const rows = tableBody.getElementsByTagName('tr');
-
-    for (let i = 0; i < rows.length; i++) {
-        const row = rows[i];
-        const departureDateCell = row.cells[row.cells.length - 1];
-        const departureDate = new Date(departureDateCell.textContent);
+    guests.forEach((guestInfo, index) => {
+        const departureDate = new Date(guestInfo["Departure Date"]);
 
         if (departureDate < currentDate) {
-            row.style.backgroundColor = '#f16006ff';
-            row.style.color = '#000';
+            highlightTableRow(index);
         }
-    }
+    });
 }
+
+// Function to highlight a specific table row by index
+function highlightTableRow(rowIndex) {
+    const tableBody = document.getElementById('guestTableBody');
+    const rows = tableBody.getElementsByTagName('tr');
+    const row = rows[rowIndex];
+    row.style.backgroundColor = '#f16006ff';
+    row.style.color = '#000';
+}
+
 
 
 
